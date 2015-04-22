@@ -79,6 +79,7 @@ public class SensorManagerStep implements SensorEventListener {
 
     }
     public void setDelay(){
+
         acc.getMinDelay();
     }
 
