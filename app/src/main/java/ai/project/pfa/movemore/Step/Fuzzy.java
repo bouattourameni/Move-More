@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class Fuzzy extends AsyncTask<Double, Void, Double> {
     private static FIS fis;
     private static InputStream ins;
-
+//ameni
     public Fuzzy(InputStream ins) {
         this.ins = ins;
         fis = FIS.load(ins,true);
