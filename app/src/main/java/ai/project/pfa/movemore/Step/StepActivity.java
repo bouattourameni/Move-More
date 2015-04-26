@@ -35,7 +35,7 @@ Intent normal;
         setContentView(R.layout.activity_step);
 
         //intialisation du sensor manager
-        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE));
+      //  manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE));
 
         //faire la liaison entre les composants du XML et java
         start=(Button)findViewById(R.id.start);

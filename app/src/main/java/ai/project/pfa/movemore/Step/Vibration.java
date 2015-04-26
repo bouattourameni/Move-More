@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.Messenger;
 
 
 /**
@@ -16,10 +17,11 @@ static double y_axes=0;
 static double z_axes=0;
 static int essai=0;
 
-
+final Messenger mMessenger = new Messenger(new IncomingHandle());
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+
+        return mMessenger.getBinder();
     }
 
     class IncomingHandle extends Handler {
