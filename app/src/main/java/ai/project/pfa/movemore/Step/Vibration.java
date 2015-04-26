@@ -29,7 +29,7 @@ final Messenger mMessenger = new Messenger(new IncomingHandle());
         private int nbre_msg=0;
         @Override
         public void handleMessage(Message msg){
-
+            super.handleMessage(msg);
         }
     }
 }
