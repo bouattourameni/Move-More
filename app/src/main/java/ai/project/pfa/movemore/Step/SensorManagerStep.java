@@ -69,7 +69,7 @@ public class SensorManagerStep implements SensorEventListener {
         else
         {
 
-        fuzzy.execute(x,y,z);
+        fuzzy.evaluate(x,y,z);
 
         }
     }
