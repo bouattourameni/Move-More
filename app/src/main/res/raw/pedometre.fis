@@ -15,8 +15,8 @@ DefuzzMethod='centroid'
 Name='axes_x'
 Range=[0 30]
 NumMFs=3
-MF1='low':'trapmf',[0 0 0.3 0.5]
-MF2='meduim':'trapmf',[0.2 0.5 5 6]
+MF1='low':'trapmf',[0 0 0.03 0.05]
+MF2='meduim':'trapmf',[0.02 0.5 5 6]
 MF3='fast':'trapmf',[3 4 25 40]
 
 [Input2]
