@@ -6,8 +6,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 
 /**
  * Created by Ameni on 13/04/2015.
@@ -36,6 +39,8 @@ public class SensorManagerStep implements SensorEventListener {
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
+                mService = null;
+                mBound = false;
 
         }
     };
@@ -75,9 +80,26 @@ public class SensorManagerStep implements SensorEventListener {
         y = event.values[1] - gravity[1];
         z = event.values[1] - gravity[2];
 
+        String protocole;
+        protocole = Double.toString(x)+":"+Double.toString(y)+":"+Double.toString(z);
+        Bundle b = new Bundle();
+        b.putString("x",Double.toString(x));
+        b.putString("y",Double.toString(y));
+        b.putString("z",Double.toString(z));
+        if (mBound){
+            Message msg = Message.obtain();
+            msg.setData(b);
+
+            try {
+                mService.send(msg);
+            }
+            catch (RemoteException e){
+                e.printStackTrace();
+            }
+        }
 
 
-        fuzzy.evaluate(x,y,z);
+
 
 
     }
