@@ -1,9 +1,13 @@
 package ai.project.pfa.movemore.Step;
 
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.IBinder;
+import android.os.Messenger;
 
 /**
  * Created by Ameni on 13/04/2015.
@@ -21,7 +25,20 @@ public class SensorManagerStep implements SensorEventListener {
     double z;
     Fuzzy fuzzy;
 
+    Messenger mService = null;
+    boolean mBound;
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+           mService = new Messenger(iBinder);
+           mBound= true;
+        }
 
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
 
     public SensorManagerStep(SensorManager manager) {
         this.manager = manager;
