@@ -12,11 +12,7 @@ import java.io.InputStream;
 /**
  * Created by Ameni on 13/04/2015.
  */
-public class Fuzzy extends Service {
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+public class Fuzzy extends Thread {
 
     private static FIS fis;
     private static InputStream ins;
@@ -25,6 +21,12 @@ public class Fuzzy extends Service {
         this.ins = ins;
         fis = FIS.load(ins,true);
     }
+
+    @Override
+    public void run() {
+        super.run();
+    }
+
     public static float evaluate(double xTrait, double yTrait, double zTrait){
 
         if( fis == null ) { // Error while loading?
