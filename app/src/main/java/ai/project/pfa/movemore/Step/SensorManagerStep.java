@@ -29,18 +29,15 @@ public class SensorManagerStep implements SensorEventListener {
     Fuzzy fuzzy;
 
     Messenger mService = null;
-    boolean mBound;
+    boolean mBound = true;
 
-    public void setmConnection(ServiceConnection mConnection) {
-        this.mConnection = mConnection;
-    }
 
-    private ServiceConnection mConnection;
 
-    public SensorManagerStep(SensorManager manager,ServiceConnection mConnection) {
+
+    public SensorManagerStep(SensorManager manager,Messenger mService) {
         this.manager = manager;
         acc=manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        this.mConnection=mConnection;
+        this.mService=mService;
 
     }
 

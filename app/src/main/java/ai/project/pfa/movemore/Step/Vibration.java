@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.Log;
 
 
 /**
@@ -30,6 +31,7 @@ final Messenger mMessenger = new Messenger(new IncomingHandle());
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
+            Log.i("ici..","ici.");
         }
     }
 }

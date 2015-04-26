@@ -57,12 +57,7 @@ public class ModeNormal extends Activity {
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
-        bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
-        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mConnection);
 
-        fuzzy = new Fuzzy(ins);
-        manager.setFuzzy(fuzzy);
-        manager.StartListening();
 
 
     }
@@ -70,7 +65,12 @@ public class ModeNormal extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
+        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
+        fuzzy = new Fuzzy(ins);
+        manager.setFuzzy(fuzzy);
+        manager.StartListening();
 
     }
 
