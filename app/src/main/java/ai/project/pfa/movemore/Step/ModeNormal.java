@@ -56,12 +56,13 @@ public class ModeNormal extends Activity {
 
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
-                getIdentifier("raw/pedometre", "raw", getPackageName()));
-        fuzzy = new Fuzzy(ins);
-        manager.setFuzzy(fuzzy);
+                getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
         bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
         manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mConnection);
 
+        fuzzy = new Fuzzy(ins);
+        manager.setFuzzy(fuzzy);
+        manager.StartListening();
 
 
     }
