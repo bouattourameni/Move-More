@@ -37,7 +37,7 @@ MF3='fast':'trapmf',[3 4 25 40]
 
 [Output1]
 Name='movement'
-Range=[0 1]
+Range=[0 30]
 NumMFs=3
 MF1='stop':'trimf',[-0.4 0 0.4]
 MF2='walk':'trimf',[0.1 0.5 6]
