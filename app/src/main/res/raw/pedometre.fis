@@ -15,9 +15,9 @@ DefuzzMethod='centroid'
 Name='axes_x'
 Range=[0 30]
 NumMFs=3
-MF1='low':'trapmf',[0 0 0.03 0.05]
-MF2='meduim':'trapmf',[0.02 0.5 5 6]
-MF3='fast':'trapmf',[3 4 25 40]
+MF1='low':'trapmf',[0 0 0.3 2]
+MF2='meduim':'trapmf',[1 5 20 30]
+MF3='fast':'trapmf',[15 25 30 40]
 
 [Input2]
 Name='axes_y'
@@ -37,11 +37,11 @@ MF3='fast':'trapmf',[3 4 25 40]
 
 [Output1]
 Name='movement'
-Range=[0 30]
+Range=[0 1]
 NumMFs=3
-MF1='low':'trapmf',[0 0 0.3 0.5]
-MF2='meduim':'trapmf',[0.2 0.5 5 6]
-MF3='fast':'trapmf',[3 4 25 40]
+MF1='stop':'trimf',[-0.4 0 0.4]
+MF2='walk':'trimf',[0.1 0.5 6]
+MF3='run':'trimf',[4 20 40]
 
 [Rules]
 1 1 1, 1 (1) : 1
