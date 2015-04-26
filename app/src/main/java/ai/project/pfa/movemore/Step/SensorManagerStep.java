@@ -30,25 +30,12 @@ public class SensorManagerStep implements SensorEventListener {
 
     Messenger mService = null;
     boolean mBound;
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-           mService = new Messenger(iBinder);
-           mBound= true;
-        }
+    private ServiceConnection mConnection;
 
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-                mService = null;
-                mBound = false;
-
-        }
-    };
-
-    public SensorManagerStep(SensorManager manager) {
+    public SensorManagerStep(SensorManager manager,ServiceConnection mConnection) {
         this.manager = manager;
         acc=manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+        this.mConnection=mConnection;
 
     }
 

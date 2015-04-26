@@ -1,8 +1,14 @@
 package ai.project.pfa.movemore.Step;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -17,6 +23,32 @@ public class ModeNormal extends Activity {
     TextView steps;
     Fuzzy fuzzy;
 
+    Messenger mService = null;
+    boolean mBound;
+
+    public ServiceConnection getmConnection() {
+        return mConnection;
+    }
+
+    public void setmConnection(ServiceConnection mConnection) {
+        this.mConnection = mConnection;
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mService = new Messenger(iBinder);
+            mBound= true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mService = null;
+            mBound = false;
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +58,9 @@ public class ModeNormal extends Activity {
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometre", "raw", getPackageName()));
         fuzzy = new Fuzzy(ins);
+        bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
         manager.setFuzzy(fuzzy);
-        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE));
+        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mConnection);
         manager.StartListening();
 
     }
