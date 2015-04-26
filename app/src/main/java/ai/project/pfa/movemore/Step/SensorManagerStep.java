@@ -15,7 +15,7 @@ public class SensorManagerStep implements SensorEventListener {
 
     private double[] gravity={9.81,9.81,9.81};
     private final float alpha = (float) 0.5;
-    int i;
+
     double x;
     double y;
     double z;
@@ -23,11 +23,11 @@ public class SensorManagerStep implements SensorEventListener {
 
 
 
-    public SensorManagerStep(SensorManager manager,int i) {
+    public SensorManagerStep(SensorManager manager) {
         this.manager = manager;
         acc=manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        this.i=i;
+
     }
 
     public void StartListening(){
@@ -58,20 +58,11 @@ public class SensorManagerStep implements SensorEventListener {
         y = event.values[1] - gravity[1];
         z = event.values[1] - gravity[2];
 
-        if (i==0)
-        {
-        Learn.learnStep(x,y,z);
-        StepActivity.x.setText(Double.toString(Learn.x_axes));
-        StepActivity.y.setText(Double.toString(Learn.y_axes));
-        StepActivity.z.setText(Double.toString(Learn.z_axes));
-        }
 
-        else
-        {
 
         fuzzy.evaluate(x,y,z);
 
-        }
+
     }
 
     @Override
@@ -80,14 +71,6 @@ public class SensorManagerStep implements SensorEventListener {
     }
     public void setDelay(){
         acc.getMinDelay();
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public void setI(int i) {
-        this.i = i;
     }
 
     public Fuzzy getFuzzy() {

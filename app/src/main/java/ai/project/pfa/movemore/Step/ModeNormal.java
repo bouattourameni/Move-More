@@ -27,7 +27,7 @@ public class ModeNormal extends Activity {
                 getIdentifier("raw/pedometre", "raw", getPackageName()));
         fuzzy = new Fuzzy(ins);
         manager.setFuzzy(fuzzy);
-        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),1);
+        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE));
         manager.StartListening();
 
     }

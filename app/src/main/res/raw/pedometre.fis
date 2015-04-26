@@ -13,35 +13,35 @@ DefuzzMethod='centroid'
 
 [Input1]
 Name='axes_x'
-Range=[0 6]
+Range=[0 30]
 NumMFs=3
 MF1='low':'trapmf',[0 0 0.3 0.5]
-MF2='meduim':'trapmf',[0.2 0.5 1 1.5]
-MF3='fast':'trapmf',[1 2 6 6]
+MF2='meduim':'trapmf',[0.2 0.5 5 6]
+MF3='fast':'trapmf',[3 4 25 40]
 
 [Input2]
 Name='axes_y'
-Range=[0 6]
+Range=[0 30]
 NumMFs=3
 MF1='low':'trapmf',[0 0 0.3 0.5]
-MF2='meduim':'trapmf',[0.2 0.5 1 1.5]
-MF3='fast':'trapmf',[1 2 6 6]
+MF2='meduim':'trapmf',[0.2 0.5 5 6]
+MF3='fast':'trapmf',[3 4 25 40]
 
 [Input3]
 Name='axes_z'
-Range=[0 6]
+Range=[0 30]
 NumMFs=3
 MF1='low':'trapmf',[0 0 0.3 0.5]
-MF2='meduim':'trapmf',[0.2 0.5 1 1.5]
-MF3='fast':'trapmf',[1 2 6 6]
+MF2='meduim':'trapmf',[0.2 0.5 5 6]
+MF3='fast':'trapmf',[3 4 25 40]
 
 [Output1]
 Name='movement'
-Range=[0 1]
+Range=[0 30]
 NumMFs=3
-MF1='stop':'trimf',[-0.4 0 0.4]
-MF2='marche':'trimf',[0.1 0.5 0.9]
-MF3='courir':'trimf',[0.6 1 1.4]
+MF1='low':'trapmf',[0 0 0.3 0.5]
+MF2='meduim':'trapmf',[0.2 0.5 5 6]
+MF3='fast':'trapmf',[3 4 25 40]
 
 [Rules]
 1 1 1, 1 (1) : 1
