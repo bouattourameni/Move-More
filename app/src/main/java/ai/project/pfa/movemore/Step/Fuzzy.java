@@ -22,12 +22,9 @@ public class Fuzzy extends Thread {
         fis = FIS.load(ins,true);
     }
 
-    @Override
-    public void run() {
-        super.run();
-    }
 
-    public static float evaluate(double xTrait, double yTrait, double zTrait){
+
+    public synchronized static float evaluate(double xTrait, double yTrait, double zTrait){
 
         if( fis == null ) { // Error while loading?
             System.err.println("Can't load file: ''");
