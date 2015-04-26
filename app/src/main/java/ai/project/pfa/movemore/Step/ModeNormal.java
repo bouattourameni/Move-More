@@ -58,13 +58,24 @@ public class ModeNormal extends Activity {
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometre", "raw", getPackageName()));
         fuzzy = new Fuzzy(ins);
-        bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
         manager.setFuzzy(fuzzy);
         manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mConnection);
-        manager.StartListening();
+
+
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
+        manager.setmConnection(mConnection);
+        manager.StartListening();
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+    }
 }

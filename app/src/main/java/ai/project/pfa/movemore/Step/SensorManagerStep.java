@@ -30,6 +30,11 @@ public class SensorManagerStep implements SensorEventListener {
 
     Messenger mService = null;
     boolean mBound;
+
+    public void setmConnection(ServiceConnection mConnection) {
+        this.mConnection = mConnection;
+    }
+
     private ServiceConnection mConnection;
 
     public SensorManagerStep(SensorManager manager,ServiceConnection mConnection) {
