@@ -1,0 +1,63 @@
+FUNCTION_BLOCK pedometre
+VAR_INPUT				// Define input variables
+	axes_x : REAL;
+	axes_y : REAL;
+	axes_z : REAL;
+END_VAR
+VAR_OUTPUT				// Define output variable
+	movement : REAL;
+END_VAR
+FUZZIFY axes_x
+	TERM low := (0, 0) (0, 1) (0.3, 1) (2, 0) ;
+	TERM meduim := (1, 0) (5, 1) (20, 1) (30, 0);
+	TERM fast := (15, 0) (25, 1) (30, 1) (40, 0);
+END_FUZZIFY
+
+FUZZIFY axes_y			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := (0, 0) (0, 1) (0.3, 1) (2, 0) ;
+    	TERM meduim := (1, 0) (5, 1) (20, 1) (30, 0);
+    	TERM fast := (15, 0) (25, 1) (30, 1) (40, 0);
+END_FUZZIFY
+
+FUZZIFY axes_z			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := (0, 0) (0, 1) (0.3, 1) (2, 0) ;
+    	TERM meduim := (1, 0) (5, 1) (20, 1) (30, 0);
+    	TERM fast := (15, 0) (25, 1) (30, 1) (40, 0);
+END_FUZZIFY
+
+DEFUZZIFY movement			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM stop := (-0.4, 0) (0, 1) (0.4, 0);
+	TERM marche := (0.1, 0) (0.5, 1) (6, 0);
+	TERM courir := (4, 0) (20, 1) (40, 0);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+
+	RULE 1 : IF (axes_x is low) and (axes_y is low) and (axes_z is low) then (movement is stop);
+	RULE 2 : If (axes_x is low) and (axes_y is meduim) then (movement is marche);
+	RULE 3 : If (axes_x is meduim) and (axes_y is low) then (movement is marche);
+	RULE 4 : If (axes_x is fast) and (axes_y is meduim) then (movement is courir);
+	RULE 5 :  If (axes_x is fast) and (axes_y is fast) then (movement is courir);
+	RULE 6 :  If (axes_y is low) and (axes_z is low) then (movement is stop);
+	RULE 7 :  If (axes_y is meduim) and (axes_z is low) then (movement is marche);
+	RULE 8 :  If (axes_y is low) and (axes_z is meduim) then (movement is marche);
+	RULE 9 :  If (axes_y is fast) and (axes_z is meduim) then (movement is courir);
+	RULE 10 :  If (axes_y is meduim) and (axes_z is fast) then (movement is courir);
+	RULE 11 :  If (axes_x is low) and (axes_z is low) then (movement is stop);
+	RULE 12 :  If (axes_x is meduim) and (axes_z is low) then (movement is marche) ;
+	RULE 13 :  If (axes_x is low) and (axes_z is meduim) then (movement is marche) ;
+	RULE 14 :  If (axes_x is meduim) and (axes_z is meduim) then (movement is marche) ;
+	RULE 15 :  If (axes_x is meduim) and (axes_z is fast) then (movement is courir);
+	RULE 16 :  If (axes_x is fast) and (axes_z is meduim) then (movement is courir) ;
+	RULE 17 :  If (axes_x is fast) and (axes_z is fast) then (movement is courir) ;
+	RULE 18 :  If (axes_x is low) and (axes_y is low) and (axes_z is low) then (movement is stop);
+	RULE 19 :  If (axes_x is meduim) and (axes_y is meduim) and (axes_z is meduim) then (movement is marche) ;
+	RULE 20 :  If (axes_x is fast) and (axes_y is fast) and (axes_z is fast) then (movement is courir) ;
+
+END_RULEBLOCK
+END_FUNCTION_BLOCK
