@@ -2,6 +2,7 @@ package ai.project.pfa.movemore.Step;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -18,20 +19,43 @@ static double y_axes=0;
 static double z_axes=0;
 static int essai=0;
 
-final Messenger mMessenger = new Messenger(new IncomingHandle());
-    @Override
-    public IBinder onBind(Intent intent) {
 
-        return mMessenger.getBinder();
-    }
+public double getMax(double x, double y){
+    if (x>=y) return x;
+    return y;
+}
+
 
     class IncomingHandle extends Handler {
 
         private int nbre_msg=0;
+        private int debut = 0;
         @Override
         public void handleMessage(Message msg){
+
+            Bundle b= msg.getData();
+            double x = b.getDouble("x");
+            double y = b.getDouble("y");
+            double z = b.getDouble("z");
+            nbre_msg++;
+            if (nbre_msg < 20){
+                x_axes = getMax(x,x_axes);
+                y_axes = getMax(y,y_axes);
+                z_axes = getMax(z, z_axes);
+            }
+            else {
+                float f = Fuzzy.evaluate(x_axes,y_axes,z_axes);
+
+                nbre_msg = 0;
+            }
             super.handleMessage(msg);
-            Log.i("ici..","ici.");
+
         }
+    }
+    final Messenger mMessenger = new Messenger(new IncomingHandle());
+    @Override
+    public IBinder onBind(Intent intent) {
+
+        return mMessenger.getBinder();
     }
 }

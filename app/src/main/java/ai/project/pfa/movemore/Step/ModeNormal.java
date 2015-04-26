@@ -8,7 +8,9 @@ import android.content.ServiceConnection;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -23,20 +25,13 @@ public class ModeNormal extends Activity {
     TextView steps;
     Fuzzy fuzzy;
 
-    Messenger mService = null;
+    Messenger mService;
     boolean mBound;
-
-    public ServiceConnection getmConnection() {
-        return mConnection;
-    }
-
-    public void setmConnection(ServiceConnection mConnection) {
-        this.mConnection = mConnection;
-    }
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
             mService = new Messenger(iBinder);
             mBound= true;
         }
@@ -65,7 +60,17 @@ public class ModeNormal extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        bindService(new Intent(this, Vibration.class),mConnection, Context.BIND_AUTO_CREATE);
+        Intent i=new Intent(this, Vibration.class);
+        startService(i);
+        boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
+
+        Message msg = Message.obtain();
+        try {
+            mService.send(msg);
+        }
+        catch (RemoteException e){
+            e.printStackTrace();
+        }
         manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
         fuzzy = new Fuzzy(ins);
