@@ -80,8 +80,7 @@ public class SensorManagerStep implements SensorEventListener {
         y = event.values[1] - gravity[1];
         z = event.values[1] - gravity[2];
 
-        String protocole;
-        protocole = Double.toString(x)+":"+Double.toString(y)+":"+Double.toString(z);
+
         Bundle b = new Bundle();
         b.putString("x",Double.toString(x));
         b.putString("y",Double.toString(y));
