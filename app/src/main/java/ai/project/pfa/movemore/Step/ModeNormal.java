@@ -56,7 +56,6 @@ public class ModeNormal extends Activity {
         setContentView(R.layout.activity_mode_normal);
 
         steps=(TextView)findViewById(R.id.steps);
-        steps.setText("0");
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
         Intent i=new Intent(this, Vibration.class);
