@@ -60,8 +60,8 @@ public class ModeNormal extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent i=new Intent(this, Vibration.class);
-        startService(i);
+        Intent i=new Intent("ai.project.pfa.movemore.Step.Vibration");
+
         boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_IMPORTANT);
 
         Message msg = Message.obtain();
