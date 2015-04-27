@@ -29,10 +29,17 @@ public class ModeNormal extends Activity {
     boolean mBound;
 
     private ServiceConnection mConnection = new ServiceConnection() {
+
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mService = new Messenger(iBinder);
-
+            Message msg = Message.obtain();
+            try {
+                mService.send(msg);
+            }
+            catch (RemoteException e){
+                e.printStackTrace();
+            }
             mBound= true;
         }
 
@@ -52,6 +59,9 @@ public class ModeNormal extends Activity {
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
+        Intent i=new Intent(this, Vibration.class);
+        startService(i);
+        boolean b = bindService(i, mConnection, 0);
 
 
 
@@ -60,22 +70,15 @@ public class ModeNormal extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent i=new Intent("ai.project.pfa.movemore.Step.Vibration");
 
-        boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
 
-        Message msg = Message.obtain();
-        try {
-            mService.send(msg);
-        }
-        catch (RemoteException e){
-            e.printStackTrace();
-        }
-        manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
-        fuzzy = new Fuzzy(ins);
-        manager.setFuzzy(fuzzy);
-        manager.StartListening();
+
+      //  manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
+
+      //  fuzzy = new Fuzzy(ins);
+      ////  manager.setFuzzy(fuzzy);
+      //  manager.StartListening();
 
     }
 
