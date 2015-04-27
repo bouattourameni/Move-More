@@ -21,7 +21,7 @@ public class SensorManagerStep implements SensorEventListener {
     private Sensor acc;
 
     private double[] gravity={9.81,9.81,9.81};
-    private final float alpha = (float) 0.3;
+    private final float alpha = (float) 0.8;
 
     double x;
     double y;
