@@ -3,6 +3,7 @@ package ai.project.pfa.movemore.Step;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
@@ -43,6 +44,7 @@ public class Fuzzy extends Thread {
         // Evaluate
         functionBlock.evaluate();
         String S= String.valueOf(functionBlock.getVariable("movement"));
+        Log.i("mouvement", Double.toString(functionBlock.getVariable("movement").getValue()));
         System.out.println(S);
         //if (functionBlock.getVariable("movement").getValue()>=0.5) ModeNormal.setSteps();
         return (float) functionBlock.getVariable("movement").getValue();
