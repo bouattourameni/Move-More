@@ -33,13 +33,7 @@ public class ModeNormal extends Activity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mService = new Messenger(iBinder);
-            Message msg = Message.obtain();
-            try {
-                mService.send(msg);
-            }
-            catch (RemoteException e){
-                e.printStackTrace();
-            }
+
             mBound= true;
             manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
