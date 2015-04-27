@@ -41,6 +41,11 @@ public class ModeNormal extends Activity {
                 e.printStackTrace();
             }
             mBound= true;
+            manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
+
+            fuzzy = new Fuzzy(ins);
+            manager.setFuzzy(fuzzy);
+            manager.StartListening();
         }
 
         @Override
@@ -74,11 +79,7 @@ public class ModeNormal extends Activity {
 
 
 
-      //  manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
-      //  fuzzy = new Fuzzy(ins);
-      ////  manager.setFuzzy(fuzzy);
-      //  manager.StartListening();
 
     }
 
