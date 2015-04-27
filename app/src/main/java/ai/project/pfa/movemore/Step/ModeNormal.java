@@ -62,7 +62,7 @@ public class ModeNormal extends Activity {
         super.onStart();
         Intent i=new Intent("ai.project.pfa.movemore.Step.Vibration");
 
-        boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_IMPORTANT);
+        boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
 
         Message msg = Message.obtain();
         try {
