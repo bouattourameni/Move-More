@@ -33,6 +33,7 @@ public double getMax(double x, double y){
         public void handleMessage(Message msg){
 
             Bundle b= msg.getData();
+            String S=b.getString("x");
             double x = Double.parseDouble(b.getString("x"));
             double y = Double.parseDouble(b.getString("y"));
             double z = Double.parseDouble(b.getString("z"));
