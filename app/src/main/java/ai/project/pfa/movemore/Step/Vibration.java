@@ -46,7 +46,7 @@ public double getMax(double x, double y){
             else {
                 float f = Fuzzy.evaluate(x_axes,y_axes,z_axes);
                 if (f>0.4){
-                    ModeNormal.steps.setText(Integer.parseInt(String.valueOf(ModeNormal.steps.getText()))+1);
+                    ModeNormal.steps.setText(Integer.toString(Integer.parseInt(String.valueOf(ModeNormal.steps.getText()))+1));
                 }
 
                 nbre_msg = 0;
