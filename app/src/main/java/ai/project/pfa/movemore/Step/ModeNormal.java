@@ -22,7 +22,7 @@ public class ModeNormal extends Activity {
     SensorManagerStep manager;
     InputStream ins;
 
-    TextView steps;
+    public static TextView steps;
     Fuzzy fuzzy;
 
     Messenger mService;
@@ -31,8 +31,8 @@ public class ModeNormal extends Activity {
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-
             mService = new Messenger(iBinder);
+
             mBound= true;
         }
 
@@ -62,7 +62,7 @@ public class ModeNormal extends Activity {
         super.onStart();
         Intent i=new Intent(this, Vibration.class);
         startService(i);
-        boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
+        boolean b=getApplicationContext().bindService(i, mConnection, Context.BIND_IMPORTANT);
 
         Message msg = Message.obtain();
         try {
