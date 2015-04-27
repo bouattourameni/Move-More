@@ -39,25 +39,30 @@ RULEBLOCK No1
 	ACCU : MAX;			// Use 'max' accumulation method
 
 	RULE 1 : IF (axes_x is low) and (axes_y is low) and (axes_z is low) then (movement is stop);
-	RULE 2 : If (axes_x is low) and (axes_y is meduim) then (movement is marche);
-	RULE 3 : If (axes_x is meduim) and (axes_y is low) then (movement is marche);
-	RULE 4 : If (axes_x is fast) and (axes_y is meduim) then (movement is courir);
-	RULE 5 :  If (axes_x is fast) and (axes_y is fast) then (movement is courir);
-	RULE 6 :  If (axes_y is low) and (axes_z is low) then (movement is stop);
-	RULE 7 :  If (axes_y is meduim) and (axes_z is low) then (movement is marche);
-	RULE 8 :  If (axes_y is low) and (axes_z is meduim) then (movement is marche);
-	RULE 9 :  If (axes_y is fast) and (axes_z is meduim) then (movement is courir);
-	RULE 10 :  If (axes_y is meduim) and (axes_z is fast) then (movement is courir);
-	RULE 11 :  If (axes_x is low) and (axes_z is low) then (movement is stop);
-	RULE 12 :  If (axes_x is meduim) and (axes_z is low) then (movement is marche) ;
-	RULE 13 :  If (axes_x is low) and (axes_z is meduim) then (movement is marche) ;
-	RULE 14 :  If (axes_x is meduim) and (axes_z is meduim) then (movement is marche) ;
-	RULE 15 :  If (axes_x is meduim) and (axes_z is fast) then (movement is courir);
-	RULE 16 :  If (axes_x is fast) and (axes_z is meduim) then (movement is courir) ;
-	RULE 17 :  If (axes_x is fast) and (axes_z is fast) then (movement is courir) ;
-	RULE 18 :  If (axes_x is low) and (axes_y is low) and (axes_z is low) then (movement is stop);
-	RULE 19 :  If (axes_x is meduim) and (axes_y is meduim) and (axes_z is meduim) then (movement is marche) ;
-	RULE 20 :  If (axes_x is fast) and (axes_y is fast) and (axes_z is fast) then (movement is courir) ;
+	RULE 2 : if (axes_x is meduim) and (axes_y is low) and (axes_z is low) then (movement is stop);
+	RULE 3 : if (axes_x is fast) and (axes_y is low) and (axes_z is low) then (movement is stop);
+	RULE 4 : if (axes_x is low) and (axes_y is meduim) and (axes_z is low) then (movement is stop);
+	RULE 5 : if (axes_x is low) and (axes_y is fast) and (axes_z is low) then (movement is stop);
+	RULE 6 : if (axes_x is low) and (axes_y is low) and (axes_z is meduim) then (movement is stop);
+	RULE 7 : if (axes_x is low) and (axes_y is low) and (axes_z is fast) then (movement is stop);
+	RULE 8 : If (axes_x is low) and (axes_y is meduim) then (movement is marche);
+	RULE 9 : If (axes_x is meduim) and (axes_y is low) then (movement is marche);
+	RULE 10 : If (axes_x is fast) and (axes_y is meduim) then (movement is courir);
+	RULE 11 :  If (axes_x is fast) and (axes_y is fast) then (movement is courir);
+	RULE 12 :  If (axes_y is low) and (axes_z is low) then (movement is stop);
+	RULE 13 :  If (axes_y is meduim) and (axes_z is low) then (movement is marche);
+	RULE 14 :  If (axes_y is low) and (axes_z is meduim) then (movement is marche);
+	RULE 15 :  If (axes_y is fast) and (axes_z is meduim) then (movement is courir);
+	RULE 16 :  If (axes_y is meduim) and (axes_z is fast) then (movement is courir);
+	RULE 17 :  If (axes_x is low) and (axes_z is low) then (movement is stop);
+	RULE 18 :  If (axes_x is meduim) and (axes_z is low) then (movement is marche) ;
+	RULE 19 :  If (axes_x is low) and (axes_z is meduim) then (movement is marche) ;
+	RULE 20 :  If (axes_x is meduim) and (axes_z is meduim) then (movement is marche) ;
+	RULE 21 :  If (axes_x is meduim) and (axes_z is fast) then (movement is courir);
+	RULE 22 :  If (axes_x is fast) and (axes_z is meduim) then (movement is courir) ;
+	RULE 23 :  If (axes_x is fast) and (axes_z is fast) then (movement is courir) ;
+	RULE 24 :  If (axes_x is meduim) and (axes_y is meduim) and (axes_z is meduim) then (movement is marche) ;
+	RULE 25 :  If (axes_x is fast) and (axes_y is fast) and (axes_z is fast) then (movement is courir) ;
 
 END_RULEBLOCK
 END_FUNCTION_BLOCK
