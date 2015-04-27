@@ -71,9 +71,9 @@ public class SensorManagerStep implements SensorEventListener {
 
 
         Bundle b = new Bundle();
-        b.putDouble("x",x);
-        b.putDouble("y",y);
-        b.putDouble("z",z);
+        b.putString("x",Double.toString(x));
+        b.putString("y",Double.toString(y));
+        b.putString("z",Double.toString(z));
         if (mBound){
             Message msg = Message.obtain();
             msg.setData(b);

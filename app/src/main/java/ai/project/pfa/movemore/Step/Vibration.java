@@ -33,9 +33,9 @@ public double getMax(double x, double y){
         public void handleMessage(Message msg){
 
             Bundle b= msg.getData();
-            double x = b.getDouble("x");
-            double y = b.getDouble("y");
-            double z = b.getDouble("z");
+            double x = Double.parseDouble(b.getString("x"));
+            double y = Double.parseDouble(b.getString("y"));
+            double z = Double.parseDouble(b.getString("z"));
             nbre_msg++;
             if (nbre_msg < 20){
                 x_axes = getMax(x,x_axes);
