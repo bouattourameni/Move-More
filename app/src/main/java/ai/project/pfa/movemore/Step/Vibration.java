@@ -45,6 +45,7 @@ public double getMax(double x, double y){
             else {
                 float f = Fuzzy.evaluate(x_axes,y_axes,z_axes);
 
+
                 nbre_msg = 0;
             }
             super.handleMessage(msg);
