@@ -28,6 +28,8 @@ public class ModeNormal extends Activity {
     Messenger mService;
     boolean mBound;
 
+    Intent i=new Intent(this, Vibration.class);
+
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -58,12 +60,19 @@ public class ModeNormal extends Activity {
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
-        Intent i=new Intent(this, Vibration.class);
+
         startService(i);
         boolean b = bindService(i, mConnection, 0);
 
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(mConnection);
+        manager.EndListening();
     }
 
     @Override
