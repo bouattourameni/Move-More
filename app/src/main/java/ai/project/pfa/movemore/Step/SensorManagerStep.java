@@ -44,7 +44,7 @@ public class SensorManagerStep implements SensorEventListener {
     public void StartListening(){
         manager.registerListener(this,
         acc,
-        SensorManager.SENSOR_DELAY_UI);
+        SensorManager.SENSOR_DELAY_NORMAL);
         setDelay();
 
     }

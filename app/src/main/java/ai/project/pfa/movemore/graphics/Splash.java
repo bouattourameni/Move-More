@@ -19,7 +19,7 @@ public class Splash extends Activity {
 
 
         Intent i = new Intent (this, ModeNormal.class);
-        startActivity(i);
+     //   startActivity(i);
     }
 
 
