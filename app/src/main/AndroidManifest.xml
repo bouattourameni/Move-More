@@ -9,9 +9,10 @@
         android:theme="@style/AppTheme" >
         <service android:name=".Step.Vibration" >
             <intent-filter>
-                <action android:name="ai.project.pfa.movemore.Step.Vibration"/>
+                <action android:name="ai.project.pfa.movemore.Step.Vibration" />
             </intent-filter>
-           </service>
+        </service>
+
         <activity
             android:name=".Step.StepActivity"
             android:label="@string/app_name" >
@@ -21,7 +22,17 @@
             android:label="@string/title_activity_mode_normal" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="ai.project.pfa.movemore.Step"/>
+                <action android:name="ai.project.pfa.movemore.Step" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".graphics.Splash"
+            android:label="@string/title_activity_splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

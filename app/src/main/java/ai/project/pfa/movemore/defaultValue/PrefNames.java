@@ -1,4 +1,4 @@
-package defaultValue;
+package ai.project.pfa.movemore.defaultValue;
 
 /**
  * Created by user on 26/04/2015.
