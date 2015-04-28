@@ -1,11 +1,13 @@
 package ai.project.pfa.movemore.graphics;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import ai.project.pfa.movemore.R;
+import ai.project.pfa.movemore.Step.ModeNormal;
 
 public class Splash extends ActionBarActivity {
 
@@ -13,6 +15,14 @@ public class Splash extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Intent i = new Intent (this, ModeNormal.class);
+        startActivity(i);
     }
 
 
