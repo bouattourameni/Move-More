@@ -28,7 +28,7 @@ public class ModeNormal extends Activity {
     Messenger mService;
     boolean mBound;
 
-    Intent i=new Intent(this, Vibration.class);
+
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -60,7 +60,7 @@ public class ModeNormal extends Activity {
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
-
+        Intent i=new Intent(this, Vibration.class);
         startService(i);
         boolean b = bindService(i, mConnection, 0);
 
