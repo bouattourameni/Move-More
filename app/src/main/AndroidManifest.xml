@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_move_more"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <service android:name=".Step.Vibration" >
