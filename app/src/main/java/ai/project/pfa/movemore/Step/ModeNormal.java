@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -27,7 +28,7 @@ public class ModeNormal extends Activity {
 
     Messenger mService;
     boolean mBound;
-
+    Chronometer ch;
 
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -35,7 +36,7 @@ public class ModeNormal extends Activity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mService = new Messenger(iBinder);
-
+            ch.start();
             mBound= true;
             manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
@@ -56,7 +57,7 @@ public class ModeNormal extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_normal);
-
+        ch= (Chronometer) findViewById(R.id.chronometer);
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
@@ -73,6 +74,7 @@ public class ModeNormal extends Activity {
         super.onDestroy();
         unbindService(mConnection);
         manager.EndListening();
+        ch.stop();
     }
 
     @Override
