@@ -6,8 +6,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_move_more"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        >
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme" >
         <service android:name=".Step.Vibration" >
             <intent-filter>
                 <action android:name="ai.project.pfa.movemore.Step.Vibration" />
@@ -21,7 +21,6 @@
         <activity
             android:name=".Step.ModeNormal"
             android:label="@string/title_activity_mode_normal" >
-
         </activity>
         <activity
             android:name=".graphics.Splash"
@@ -31,6 +30,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".stat.Statistics"
+            android:label="@string/title_activity_statistics" >
         </activity>
     </application>
 

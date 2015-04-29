@@ -2,16 +2,15 @@ package ai.project.pfa.movemore.Step;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.Messenger;
-import android.os.RemoteException;
+import android.view.View;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -25,11 +24,12 @@ public class ModeNormal extends Activity {
 
     public static TextView steps;
     Fuzzy fuzzy;
-
+    int type;
     Messenger mService;
     boolean mBound;
     Chronometer ch;
-
+    ImageView nrmlImg;
+    ImageView sprImg;
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -57,13 +57,28 @@ public class ModeNormal extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_normal);
+        Bundle b=getIntent().getExtras();
+        nrmlImg =(ImageView)findViewById(R.id.NrmImg);
+        sprImg= (ImageView)findViewById(R.id.SprImg);
+        type=b.getInt("type");
+
+        if (type == 0) {
+            sprImg.setVisibility(View.GONE);
+            nrmlImg.setVisibility(View.VISIBLE);
+
+        }
+        else
+        {
+            nrmlImg.setVisibility(View.GONE);
+            sprImg.setVisibility(View.VISIBLE);
+        }
         ch= (Chronometer) findViewById(R.id.chronometer);
         steps=(TextView)findViewById(R.id.steps);
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
         Intent i=new Intent(this, Vibration.class);
         startService(i);
-        boolean b = bindService(i, mConnection, 0);
+        boolean b1 = bindService(i, mConnection, 0);
 
 
 
