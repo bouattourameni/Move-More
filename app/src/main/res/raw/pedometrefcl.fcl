@@ -103,21 +103,7 @@ RULEBLOCK No1
 
 
 
-	RULE 11 :  If (axes_x is fast) and (axes_y is fast) then (movement is courir);
-	RULE 12 :  If (axes_y is low) and (axes_z is low) then (movement is stop);
-	RULE 13 :  If (axes_y is meduim) and (axes_z is low) then (movement is marche);
-	RULE 14 :  If (axes_y is low) and (axes_z is meduim) then (movement is marche);
-	RULE 15 :  If (axes_y is fast) and (axes_z is meduim) then (movement is courir);
 
-	RULE 17 :  If (axes_x is fast) and (axes_y is meduim) then (movement is courir);
-	RULE 18 :  If (axes_x is meduim) and (axes_z is low) then (movement is marche);
-	RULE 19 :  If (axes_x is meduim) and ((axes_y is low) and (axes_z is meduim)) then (movement is marche);
-	RULE 20 :  If (axes_x is meduim) and (axes_z is meduim) then (movement is marche);
-	RULE 21 :  If (axes_x is meduim) and (axes_z is fast) then (movement is courir);
-	RULE 22 :  If (axes_x is fast) and (axes_z is meduim) then (movement is courir);
-	RULE 23 :  If (axes_x is fast) and (axes_z is fast) then (movement is courir);
-	RULE 24 :  If (axes_x is meduim) and ((axes_y is meduim) and (axes_z is meduim)) then (movement is marche) ;
-	RULE 25 :  If (axes_x is fast) and ((axes_y is fast) and (axes_z is fast)) then (movement is courir) ;
 
 END_RULEBLOCK
 END_FUNCTION_BLOCK
