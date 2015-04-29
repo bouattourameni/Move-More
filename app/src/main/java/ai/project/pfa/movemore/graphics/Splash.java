@@ -18,7 +18,7 @@ public class Splash extends Activity implements AdapterView.OnItemSelectedListen
         setContentView(R.layout.activity_splash);
 
         Intent i = new Intent(this, ModeNormal.class);
-        //   startActivity(i);
+          startActivity(i);
     }
 
 
