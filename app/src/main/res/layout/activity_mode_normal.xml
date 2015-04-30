@@ -52,7 +52,7 @@
         android:id="@+id/chronometer"
         android:textSize="40dp"
         android:format="H:MM:SS"
-        android:gravity="right" />
+         />
 
 
 </LinearLayout>
