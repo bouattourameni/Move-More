@@ -7,8 +7,10 @@ import android.util.Log;
 
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 
 import java.io.InputStream;
+import java.util.HashMap;
 
 /**
  * Created by Ameni on 13/04/2015.
@@ -46,6 +48,16 @@ public class Fuzzy extends Thread {
         String S= String.valueOf(functionBlock.getVariable("movement"));
         Log.i("mouvement", Double.toString(functionBlock.getVariable("movement").getValue()));
         System.out.println(S);
+        String S1= String.valueOf(functionBlock.getVariable("axes_x"));
+        Log.i("x", Double.toString(functionBlock.getVariable("axes_x").getValue()));
+        System.out.println(S1);
+        String S2= String.valueOf(functionBlock.getVariable("axes_y"));
+        Log.i("y", Double.toString(functionBlock.getVariable("axes_y").getValue()));
+        System.out.println(S2);
+        String S3= String.valueOf(functionBlock.getVariable("axes_z"));
+        Log.i("z", Double.toString(functionBlock.getVariable("axes_z").getValue()));
+        System.out.println(S3);
+
         //if (functionBlock.getVariable("movement").getValue()>=0.5) ModeNormal.setSteps();
         return (float) functionBlock.getVariable("movement").getValue();
 
