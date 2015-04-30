@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import ai.project.pfa.movemore.R;
 import ai.project.pfa.movemore.Step.ModeNormal;
@@ -57,17 +58,7 @@ public class Splash extends Activity implements AdapterView.OnItemSelectedListen
         buttonAbout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getApplication())
-                        .setTitle("About Me")
-                        .setMessage("Ameni Bouattour #Study_Jams")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                            }
-                        })
-
-                        .setIcon(android.R.drawable.btn_star)
-                        .show();
+                Toast.makeText(getApplicationContext(),"Ameni Bouattour, GDG Sfax, #Study_Jams",Toast.LENGTH_LONG).show();
             }
         });
 

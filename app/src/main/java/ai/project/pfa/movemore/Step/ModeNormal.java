@@ -36,7 +36,6 @@ public class ModeNormal extends Activity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mService = new Messenger(iBinder);
-            ch.start();
             mBound= true;
             manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
@@ -74,6 +73,7 @@ public class ModeNormal extends Activity {
         }
         ch= (Chronometer) findViewById(R.id.chronometer);
         steps=(TextView)findViewById(R.id.steps);
+        ch.start();
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
         Intent i=new Intent(this, Vibration.class);
