@@ -10,13 +10,15 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class StepDBHelper extends SQLiteOpenHelper {
 
-    public StepDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    private static final int DATABASE_VERSION = 1;
+
+    public static final String DATABASE_NAME = "step.db";
+
+    public StepDBHelper(Context context) {
+        super(context, DATABASE_NAME, null , DATABASE_VERSION);
     }
 
-    public StepDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, name, factory, version, errorHandler);
-    }
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
