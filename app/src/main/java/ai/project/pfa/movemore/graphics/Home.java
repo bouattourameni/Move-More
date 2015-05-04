@@ -12,7 +12,7 @@ import ai.project.pfa.movemore.R;
 import ai.project.pfa.movemore.Step.ModeNormal;
 import ai.project.pfa.movemore.stat.Statistics;
 
-public class Splash extends Activity implements AdapterView.OnItemSelectedListener {
+public class Home extends Activity implements AdapterView.OnItemSelectedListener {
 
     Button buttonNormal;
     Button buttonSportif;

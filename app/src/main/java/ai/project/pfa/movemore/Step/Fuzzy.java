@@ -1,16 +1,11 @@
 package ai.project.pfa.movemore.Step;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 
 import java.io.InputStream;
-import java.util.HashMap;
 
 /**
  * Created by Ameni on 13/04/2015.
