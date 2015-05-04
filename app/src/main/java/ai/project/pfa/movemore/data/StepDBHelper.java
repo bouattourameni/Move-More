@@ -46,6 +46,8 @@ public class StepDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + StepContract.NormalEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + StepContract.SportEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }
