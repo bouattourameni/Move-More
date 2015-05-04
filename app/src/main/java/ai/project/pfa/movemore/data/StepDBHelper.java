@@ -22,7 +22,26 @@ public class StepDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        final String SQL_CREATE_NORMAL_TABLE = "CREATE TABLE " + StepContract.NormalEntry.TABLE_NAME + " (" +
+                StepContract.NormalEntry._ID + " INTEGER PRIMARY KEY," +
+                StepContract.NormalEntry.COLUMN_DATE + " TEXT UNIQUE NOT NULL, " +
+                StepContract.NormalEntry.COLUMN_NBRE_STEPS + " TEXT NOT NULL, " +
+                StepContract.NormalEntry.COLUMN_TEMPS + " REAL NOT NULL, " +
+                "UNIQUE (" + StepContract.NormalEntry.COLUMN_DATE +") ON CONFLICT IGNORE"+
+                " );";
 
+        final String SQL_CREATE_SPORT_TABLE = "CREATE TABLE " + StepContract.SportEntry.TABLE_NAME + " (" +
+
+                StepContract.SportEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                StepContract.SportEntry.COLUMN_DATE + " INTEGER NOT NULL, " +
+                StepContract.SportEntry.COLUMN_NBRE_STEPS + " TEXT NOT NULL, " +
+                StepContract.SportEntry.COLUMN_TEMPS + " INTEGER NOT NULL," +
+
+                " UNIQUE (" + StepContract.SportEntry.COLUMN_DATE
+                 + ") ON CONFLICT REPLACE);";
+
+        sqLiteDatabase.execSQL(SQL_CREATE_NORMAL_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_SPORT_TABLE);
     }
 
     @Override

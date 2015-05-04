@@ -39,12 +39,29 @@ public class StepContract {
 
         public static Uri buildNormalUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
-
         }
+        public static Uri buildStepUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+        public static Uri buildStepWithStartDate(
+                long startDate) {
+
+            return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate)).build();
+        }
+        public static String getStepFromUri(Uri uri) {
+            return uri.getPathSegments().get(2);
+        }
+
+        public static long getDateFromUri(Uri uri) {
+            return Long.parseLong(uri.getPathSegments().get(1));
+        }
+    }
+
+
 
     /* Inner class that defines the contents of the weather table */
 
-    }
+
 
     public static final class SportEntry implements BaseColumns {
 
@@ -61,8 +78,22 @@ public class StepContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SPORT;
 
 
-        public static Uri buildWeatherUri(long id) {
+        public static Uri buildStepUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+        public static Uri buildStepWithStartDate(
+                 long startDate) {
+
+                return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate)).build();
+            }
+        public static String getStepFromUri(Uri uri) {
+            return uri.getPathSegments().get(2);
+        }
+
+        public static long getDateFromUri(Uri uri) {
+            return Long.parseLong(uri.getPathSegments().get(1));
+        }
+        }
+
     }
-}
+
