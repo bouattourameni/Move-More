@@ -24,11 +24,13 @@ public class StepContract {
         return time.setJulianDay(julianDay);
     }
 
-    public static final class NormalEntry implements BaseColumns {
+    public static final class StepEntry implements BaseColumns {
         public static final String TABLE_NAME = "normal";
         public static final String COLUMN_DATE = "date";
         public static final String COLUMN_NBRE_STEPS = "nbreSteps";
         public static final String COLUMN_TEMPS = "temps";
+        public static final String COLUMN_TYPE = "type";
+
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_NORMAL).build();
 
@@ -47,6 +49,21 @@ public class StepContract {
 
             return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate)).build();
         }
+
+        public static Uri buildStepWithStartDateAndType(
+                long startDate, String type) {
+
+            return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate))
+                    .appendQueryParameter(COLUMN_DATE, type)
+                    .build();
+        }
+//        public static Uri buildStepWithStartDateAndType(
+//                long startDate, String type) {
+//
+//            return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate))
+//                    .appendQueryParameter(COLUMN_DATE, type)
+//                    .build();
+//        }
         public static String getStepFromUri(Uri uri) {
             return uri.getPathSegments().get(2);
         }
@@ -58,41 +75,11 @@ public class StepContract {
 
 
 
-    /* Inner class that defines the contents of the weather table */
 
 
 
-    public static final class SportEntry implements BaseColumns {
-
-        public static final String TABLE_NAME = "sport";
-        public static final String COLUMN_DATE = "date";
-        public static final String COLUMN_NBRE_STEPS = "nbreSteps";
-        public static final String COLUMN_TEMPS = "temps";
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SPORT).build();
-
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SPORT;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SPORT;
 
 
-        public static Uri buildStepUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-        public static Uri buildStepWithStartDate(
-                 long startDate) {
-
-                return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate)).build();
-            }
-        public static String getStepFromUri(Uri uri) {
-            return uri.getPathSegments().get(2);
-        }
-
-        public static long getDateFromUri(Uri uri) {
-            return Long.parseLong(uri.getPathSegments().get(1));
-        }
-        }
 
     }
 
