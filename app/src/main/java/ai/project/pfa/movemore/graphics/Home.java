@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import ai.project.pfa.movemore.R;
-import ai.project.pfa.movemore.Step.ModeNormal;
+import ai.project.pfa.movemore.Step.ModeStep;
 import ai.project.pfa.movemore.stat.Statistics;
 
 public class Home extends Activity implements AdapterView.OnItemSelectedListener {
@@ -18,7 +18,7 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
     Button buttonSportif;
     Button buttonStat;
     Button buttonAbout;
-
+    int currentType = -1;
     Intent intentModes;
     Intent intentStat;
     @Override
@@ -30,20 +30,28 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
         buttonSportif=(Button)findViewById(R.id.buttonSportif);
         buttonStat=(Button)findViewById(R.id.buttonStatistique);
         buttonAbout=(Button)findViewById(R.id.buttonAboutMe);
-        intentModes = new Intent(this, ModeNormal.class);
+        intentModes = new Intent(this, ModeStep.class);
         intentStat = new Intent (this, Statistics.class);
         buttonNormal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                intentModes.putExtra("type", 0);
-                startActivity(intentModes);
+                if (currentType == -1) {
+                    intentModes.putExtra("type", 0);
+                    startActivity(intentModes);
+                    setCurrentType(0);
+                }
+                else if (currentType == 0){
+                }
             }
         });
         buttonSportif.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                intentModes.putExtra("type", 1);
-                startActivity(intentModes);
+                if (currentType == -1) {
+                    intentModes.putExtra("type", 1);
+                    startActivity(intentModes);
+                    setCurrentType(1);
+                }
             }
         });
         buttonStat.setOnClickListener(new View.OnClickListener(){
@@ -63,6 +71,13 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
 
     }
 
+    public int getCurrentType() {
+        return currentType;
+    }
+
+    public void setCurrentType(int currentType) {
+        this.currentType = currentType;
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

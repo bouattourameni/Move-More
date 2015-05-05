@@ -48,7 +48,7 @@ public double getMax(double x, double y){
 
                 if (f>2){
                     essai++;
-                    ModeNormal.steps.setText(Integer.toString(essai+1));
+                    ModeStep.steps.setText(Integer.toString(essai+1));
                 }
                 x_axes=0;
                 y_axes=0;

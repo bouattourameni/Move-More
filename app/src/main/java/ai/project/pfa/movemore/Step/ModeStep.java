@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Messenger;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,12 +18,11 @@ import java.io.InputStream;
 
 import ai.project.pfa.movemore.R;
 
-public class ModeNormal extends Activity {
-
-    SensorManagerStep manager;
-    InputStream ins;
+public class ModeStep extends Activity {
 
     public static TextView steps;
+    SensorManagerStep manager;
+    InputStream ins;
     Fuzzy fuzzy;
     int type;
     Messenger mService;
@@ -31,17 +31,19 @@ public class ModeNormal extends Activity {
     ImageView nrmlImg;
     ImageView sprImg;
 
+    Button start;
+    Button stop;
+
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mService = new Messenger(iBinder);
             mBound= true;
+
             manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
 
-            fuzzy = new Fuzzy(ins);
-            manager.setFuzzy(fuzzy);
-            manager.StartListening();
+
         }
 
         @Override
@@ -73,15 +75,46 @@ public class ModeNormal extends Activity {
         }
         ch= (Chronometer) findViewById(R.id.chronometer);
         steps=(TextView)findViewById(R.id.steps);
-        ch.start();
+
         ins = getResources().openRawResource(getResources().
                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
         Intent i=new Intent(this, Vibration.class);
         startService(i);
         boolean b1 = bindService(i, mConnection, 0);
+        start = (Button) findViewById(R.id.start);
+        stop = (Button) findViewById(R.id.stop);
+
+        start.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             if (mBound) {
+                 ch.start();
+                 fuzzy = new Fuzzy(ins);
+                 manager.setFuzzy(fuzzy);
+                 manager.StartListening();
+             }
+                                     }
+                                 }
+
+        );
+
+        stop.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                ch.stop();
+                manager.EndListening();
+                unbindService(mConnection);
+                steps.setText("0");
+            }
+        });
 
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
