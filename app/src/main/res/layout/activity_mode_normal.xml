@@ -11,20 +11,22 @@
     android:background="@drawable/background">
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/NrmImg"
         android:src="@drawable/marche"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:visibility="gone" />
+        android:visibility="visible"
+        android:layout_weight="1" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/SprImg"
         android:src="@drawable/run"
         android:adjustViewBounds="true"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -52,6 +54,27 @@
         android:id="@+id/chronometer"
         android:textSize="40dp"
          />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:id="@+id/button"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/button2"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 
 </LinearLayout>
