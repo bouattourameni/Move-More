@@ -35,6 +35,10 @@
             android:label="@string/title_activity_statistics"
             android:screenOrientation="portrait">
         </activity>
+        <provider
+            android:authorities="ai.project.pfa.movemore"
+            android:name=".data.StepProvider"
+            />
     </application>
 
 </manifest>

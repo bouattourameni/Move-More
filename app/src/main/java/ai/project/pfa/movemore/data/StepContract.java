@@ -34,12 +34,11 @@ public class StepContract {
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_NORMAL;
+
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_NORMAL;
 
-        public static Uri buildNormalUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
+
         public static Uri buildStepUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
