@@ -17,7 +17,8 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:visibility="visible"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
         android:src="@drawable/run"
         android:adjustViewBounds="true"
         android:visibility="gone"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:orientation="horizontal"
