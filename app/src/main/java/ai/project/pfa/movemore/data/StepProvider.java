@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
@@ -124,21 +125,84 @@ public class StepProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        return null;
+        final int match = sUriMatcher.match(uri);
+
+        switch (match) {
+            // Student: Uncomment and fill out these two cases
+            case STEP_WITH_TYPE_AND_DATE:
+                return StepContract.StepEntry.CONTENT_ITEM_TYPE;
+            case STEP_WITH_TYPE:
+                return StepContract.StepEntry.CONTENT_TYPE;
+            case STEP:
+                return StepContract.StepEntry.CONTENT_TYPE;
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+    }
+    private void normalizeDate(ContentValues values) {
+        // normalize the date value
+        if (values.containsKey(StepContract.StepEntry.COLUMN_DATE)) {
+            long dateValue = values.getAsLong(StepContract.StepEntry.COLUMN_DATE);
+            values.put(StepContract.StepEntry.COLUMN_DATE, StepContract.normalizeDate(dateValue));
+        }
+    }
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        Uri returnUri;
+
+        switch (match) {
+            case STEP: {
+                normalizeDate(values);
+                long _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, values);
+                if ( _id > 0 )
+                    returnUri = StepContract.StepEntry.buildStepUri(_id);
+                else
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                break;
+            }
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return returnUri;
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues contentValues) {
-        return null;
+    public int delete(Uri uri, String selection, String[] strings) {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int rowsDeleted;
+        // this makes delete all rows return the number of rows deleted
+        if ( null == selection ) selection = "1";
+
+        rowsDeleted = db.delete(
+                StepContract.StepEntry.TABLE_NAME, selection, strings);
+
+        // Because a null deletes all rows
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsDeleted;
     }
 
     @Override
-    public int delete(Uri uri, String s, String[] strings) {
-        return 0;
-    }
+    public int update(Uri uri, ContentValues values, String s, String[] strings) {
 
-    @Override
-    public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        return 0;
+
+            final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+            final int match = sUriMatcher.match(uri);
+            int rowsUpdated;
+
+                    normalizeDate(values);
+                    rowsUpdated = db.update(StepContract.StepEntry.TABLE_NAME, values, s,
+                            strings);
+
+            if (rowsUpdated != 0) {
+                getContext().getContentResolver().notifyChange(uri, null);
+            }
+            return rowsUpdated;
     }
 }
