@@ -118,6 +118,13 @@ public class ModeStep extends Activity {
     }
 
     @Override
+    protected void onPause() {
+
+        super.onPause();
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         unbindService(mConnection);

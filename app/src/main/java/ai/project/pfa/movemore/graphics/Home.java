@@ -21,6 +21,7 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
     int currentType = -1;
     Intent intentModes;
     Intent intentStat;
+    static int stepping = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
