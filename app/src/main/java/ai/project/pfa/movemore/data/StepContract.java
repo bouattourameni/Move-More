@@ -24,7 +24,7 @@ public class StepContract {
     }
 
     public static final class StepEntry implements BaseColumns {
-        public static final String TABLE_NAME = "normal";
+        public static final String TABLE_NAME = "step";
         public static final String COLUMN_DATE = "date";
         public static final String COLUMN_TYPE = "type";
         public static final String COLUMN_NBRE_STEPS = "nbreSteps";

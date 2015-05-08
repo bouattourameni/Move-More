@@ -2,12 +2,14 @@ package ai.project.pfa.movemore.Step;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Messenger;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -15,8 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
 
 import ai.project.pfa.movemore.R;
+import ai.project.pfa.movemore.data.StepContract;
 
 public class ModeStep extends Activity {
 
@@ -33,6 +39,9 @@ public class ModeStep extends Activity {
 
     Button start;
     Button stop;
+    Date date = new Date();
+    Time time;
+
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -62,6 +71,11 @@ public class ModeStep extends Activity {
         nrmlImg =(ImageView)findViewById(R.id.NrmImg);
         sprImg= (ImageView)findViewById(R.id.SprImg);
         type=b.getInt("type");
+        time = new Time();
+        time.setToNow();
+        date.setDate(time.monthDay);
+        date.setMonth(time.month);
+        date.setYear(time.year);
 
         if (type == 0) {
             sprImg.setVisibility(View.GONE);
@@ -106,6 +120,16 @@ public class ModeStep extends Activity {
                 manager.EndListening();
                 unbindService(mConnection);
                 steps.setText("0");
+                Vector<ContentValues> cVVector = new Vector<ContentValues>(4);
+                ContentValues StepValues = new ContentValues();
+
+                StepValues.put(StepContract.StepEntry.COLUMN_DATE, Long.toString(date.getTime()));
+                StepValues.put(StepContract.StepEntry.COLUMN_TYPE, Integer.toString(type));
+                StepValues.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, String.valueOf(steps.getText()));
+                StepValues.put(StepContract.StepEntry.COLUMN_TEMPS, String.valueOf(ch.getText()));
+
+                cVVector.add(StepValues);
+
             }
         });
 

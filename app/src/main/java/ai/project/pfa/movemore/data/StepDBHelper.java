@@ -27,7 +27,7 @@ public class StepDBHelper extends SQLiteOpenHelper {
                 StepContract.StepEntry.COLUMN_DATE + " TEXT UNIQUE NOT NULL, " +
                 StepContract.StepEntry.COLUMN_TYPE + " TEXT NOT NULL, " +
                 StepContract.StepEntry.COLUMN_NBRE_STEPS + " TEXT NOT NULL, " +
-                StepContract.StepEntry.COLUMN_TEMPS + " REAL NOT NULL, " +
+                StepContract.StepEntry.COLUMN_TEMPS + " TEXT NOT NULL, " +
 
                 "UNIQUE (" + StepContract.StepEntry.COLUMN_DATE +") ON CONFLICT IGNORE"+
 
