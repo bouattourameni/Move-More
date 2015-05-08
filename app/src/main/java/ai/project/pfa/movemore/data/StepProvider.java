@@ -210,16 +210,32 @@ public class StepProvider extends ContentProvider {
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        ContentValues value = values [0];
+        long dateValue = 0;
+        normalizeDate(value);
+        if (value.containsKey(StepContract.StepEntry.COLUMN_DATE))
+            dateValue = value.getAsLong(StepContract.StepEntry.COLUMN_DATE);
+        uri = StepContract.StepEntry.buildStepWithStartDateAndType(dateValue,
+                value.getAsString(StepContract.StepEntry.COLUMN_TYPE));
+        Cursor cursor = getStepByTypeAndDate(uri,null,null);
 
-                db.beginTransaction();
+        db.beginTransaction();
                 int returnCount = 0;
                 try {
-                    for (ContentValues value : values) {
-                        normalizeDate(value);
-                        long _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, value);
+                    long _id = -1;
+                    if (cursor.isNull(0)) {
+                        _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             returnCount++;
                         }
+                    }
+                    else {
+                        String stepsnbre = cursor.getString(cursor.getColumnIndex(StepContract.StepEntry.COLUMN_NBRE_STEPS));
+                        int step = Integer.parseInt(stepsnbre);
+                        int stepPrecedent = Integer.parseInt(value.getAsString(StepContract.StepEntry.COLUMN_NBRE_STEPS));
+                        step = step + stepPrecedent;
+                        value.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, step);
+                        _id = update(uri,value, null ,null);
                     }
                     db.setTransactionSuccessful();
                 } finally {
