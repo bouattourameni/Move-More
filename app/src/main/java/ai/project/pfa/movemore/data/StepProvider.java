@@ -157,6 +157,7 @@ public class StepProvider extends ContentProvider {
         switch (match) {
             case STEP: {
                 normalizeDate(values);
+
                 long _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, values);
                 if ( _id > 0 )
                     returnUri = StepContract.StepEntry.buildStepUri(_id);

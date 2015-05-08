@@ -123,12 +123,20 @@ public class ModeStep extends Activity {
                 Vector<ContentValues> cVVector = new Vector<ContentValues>(4);
                 ContentValues StepValues = new ContentValues();
 
-                StepValues.put(StepContract.StepEntry.COLUMN_DATE, Long.toString(date.getTime()));
+                StepValues.put(StepContract.StepEntry.COLUMN_DATE, date.getTime());
                 StepValues.put(StepContract.StepEntry.COLUMN_TYPE, Integer.toString(type));
                 StepValues.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, String.valueOf(steps.getText()));
                 StepValues.put(StepContract.StepEntry.COLUMN_TEMPS, String.valueOf(ch.getText()));
 
                 cVVector.add(StepValues);
+                int inserted = 0;
+                // add to database
+                if ( cVVector.size() > 0 ) {
+                    // Student: call bulkInsert to add the weatherEntries to the database here
+                    ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                    cVVector.toArray(cvArray);
+                    inserted = getApplication().getContentResolver().bulkInsert(StepContract.StepEntry.CONTENT_URI, cvArray);
+                }
 
             }
         });
