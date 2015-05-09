@@ -1,0 +1,1 @@
+Move More is a pedometer that does not count how many steps you make only but also detect if the step is due to walking or running. I used fuzzy logic to have that information (jFuzzyLogic api). For the extansion of the application, I will use those information to calculate the lost calories with more precise way. 
