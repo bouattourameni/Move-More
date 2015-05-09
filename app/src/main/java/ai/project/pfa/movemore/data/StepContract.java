@@ -54,7 +54,7 @@ public class StepContract {
                 long startDate, String type) {
 
             return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate))
-                    .appendQueryParameter(COLUMN_DATE, type)
+                    .appendQueryParameter(COLUMN_TYPE, type)
                     .build();
         }
 //        public static Uri buildStepWithStartDateAndType(
@@ -69,10 +69,10 @@ public class StepContract {
         }
 
         public static long getDateFromUri(Uri uri) {
-            return Long.parseLong(uri.getPathSegments().get(1));
+            return Long.parseLong(uri.getPathSegments().get(0));
         }
         public static String getTypeFromUri(Uri uri) {
-            return uri.getPathSegments().get(2);
+            return uri.getPathSegments().get(1);
         }
     }
 
