@@ -71,6 +71,18 @@ public class ModeStep extends Activity {
         nrmlImg =(ImageView)findViewById(R.id.NrmImg);
         sprImg= (ImageView)findViewById(R.id.SprImg);
         type=b.getInt("type");
+        ch= (Chronometer) findViewById(R.id.chronometer);
+        steps=(TextView)findViewById(R.id.steps);
+
+        ins = getResources().openRawResource(getResources().
+                getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
+        Intent i=new Intent(this, Vibration.class);
+        if (type == -1) {
+            onResume();
+
+        }else {
+
+
         time = new Time();
         time.setToNow();
         date.setDate(time.monthDay);
@@ -87,14 +99,10 @@ public class ModeStep extends Activity {
             nrmlImg.setVisibility(View.GONE);
             sprImg.setVisibility(View.VISIBLE);
         }
-        ch= (Chronometer) findViewById(R.id.chronometer);
-        steps=(TextView)findViewById(R.id.steps);
 
-        ins = getResources().openRawResource(getResources().
-                getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
-        Intent i=new Intent(this, Vibration.class);
         startService(i);
         boolean b1 = bindService(i, mConnection, 0);
+        }
         start = (Button) findViewById(R.id.start);
         stop = (Button) findViewById(R.id.stop);
 

@@ -42,6 +42,10 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
                     setCurrentType(0);
                 }
                 else if (currentType == 0){
+                    intentModes.putExtra("type", -1);
+                    startActivity(intentModes);
+                    startActivity(intentModes);
+
                 }
             }
         });
