@@ -180,6 +180,7 @@ public class ModeStep extends Activity {
             unbindService(mConnection);
             manager.EndListening();
             ch.stop();
+            Home.currentType = -1;
         }
     }
 
