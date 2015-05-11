@@ -18,7 +18,7 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
     Button buttonSportif;
     Button buttonStat;
     Button buttonAbout;
-    int currentType = -1;
+    public static int currentType = -1;
     Intent intentModes;
     Intent intentStat;
     static int stepping = 0;

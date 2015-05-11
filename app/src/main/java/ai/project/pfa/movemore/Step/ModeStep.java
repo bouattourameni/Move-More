@@ -23,6 +23,7 @@ import java.util.Vector;
 
 import ai.project.pfa.movemore.R;
 import ai.project.pfa.movemore.data.StepContract;
+import ai.project.pfa.movemore.graphics.Home;
 
 public class ModeStep extends Activity {
 
@@ -131,6 +132,8 @@ public class ModeStep extends Activity {
                 steps.setText("0");
                 createOrUpdateData();
                 onStop();
+                mBound = false;
+                Home.currentType = -1;
 
             }
         });
@@ -173,9 +176,11 @@ public class ModeStep extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(mConnection);
-        manager.EndListening();
-        ch.stop();
+        if (mBound) {
+            unbindService(mConnection);
+            manager.EndListening();
+            ch.stop();
+        }
     }
 
     @Override

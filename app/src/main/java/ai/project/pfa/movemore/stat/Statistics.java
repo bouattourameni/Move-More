@@ -1,30 +1,29 @@
 package ai.project.pfa.movemore.stat;
 
+import android.content.CursorLoader;
 import android.database.Cursor;
-import android.net.Uri;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import ai.project.pfa.movemore.R;
-import ai.project.pfa.movemore.Step.Step;
 import ai.project.pfa.movemore.data.StepContract;
-
-import android.support.v4.content.Loader;
-import android.support.v4.content.CursorLoader;
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.widget.TextView;
 
 public class Statistics extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>
 
 {
+
+
+
     private static final int STEP_LOADER = 0;
 private static final String[] STEP_COLUMNS = {
 
         StepContract.StepEntry.TABLE_NAME + "." + StepContract.StepEntry._ID,
+        StepContract.StepEntry.COLUMN_TYPE,
         StepContract.StepEntry.COLUMN_DATE,
         StepContract.StepEntry.COLUMN_NBRE_STEPS
 };
@@ -39,7 +38,7 @@ TextView nbrestepnormal;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        getLoaderManager().initLoader(STEP_LOADER, savedInstanceState, (android.app.LoaderManager.LoaderCallbacks<Object>) getApplication());
+        getLoaderManager().initLoader(STEP_LOADER, null, this);
         nbrestepnormal = (TextView) findViewById(R.id.nbrestepnormal);
         nbrestepsport = (TextView) findViewById (R.id.nbrestepsport);
     }
@@ -77,6 +76,9 @@ TextView nbrestepnormal;
                     null,
                     null);
     }
+
+
+
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
