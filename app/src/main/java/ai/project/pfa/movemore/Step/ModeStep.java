@@ -74,8 +74,7 @@ public class ModeStep extends Activity {
         ch= (Chronometer) findViewById(R.id.chronometer);
         steps=(TextView)findViewById(R.id.steps);
 
-        ins = getResources().openRawResource(getResources().
-                getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
+
         Intent i=new Intent(this, Vibration.class);
         if (type == -1) {
             onResume();
@@ -89,7 +88,7 @@ public class ModeStep extends Activity {
         date.setMonth(time.month);
         date.setYear(time.year);
 
-        if (type == 0) {
+        if (type == 1) {
             sprImg.setVisibility(View.GONE);
             nrmlImg.setVisibility(View.VISIBLE);
 
@@ -109,6 +108,8 @@ public class ModeStep extends Activity {
         start.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
+             ins = getResources().openRawResource(getResources().
+                     getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
              if (mBound) {
                  ch.start();
                  fuzzy = new Fuzzy(ins);
@@ -129,6 +130,7 @@ public class ModeStep extends Activity {
                 unbindService(mConnection);
                 steps.setText("0");
                 createOrUpdateData();
+                onStop();
 
             }
         });

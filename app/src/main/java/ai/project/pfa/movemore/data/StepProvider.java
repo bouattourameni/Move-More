@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
@@ -217,30 +218,39 @@ public class StepProvider extends ContentProvider {
             dateValue = value.getAsLong(StepContract.StepEntry.COLUMN_DATE);
         uri = StepContract.StepEntry.buildStepWithStartDateAndType(dateValue,
                 value.getAsString(StepContract.StepEntry.COLUMN_TYPE));
-        Cursor cursor = getStepByTypeAndDate(uri,null,null);
-
+        Cursor cursor = null;
         db.beginTransaction();
-                int returnCount = 0;
-                try {
-                    long _id = -1;
-                    if (cursor.isNull(0)) {
-                        _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, value);
-                        if (_id != -1) {
-                            returnCount++;
-                        }
-                    }
-                    else {
-                        String stepsnbre = cursor.getString(cursor.getColumnIndex(StepContract.StepEntry.COLUMN_NBRE_STEPS));
-                        int step = Integer.parseInt(stepsnbre);
-                        int stepPrecedent = Integer.parseInt(value.getAsString(StepContract.StepEntry.COLUMN_NBRE_STEPS));
-                        step = step + stepPrecedent;
-                        value.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, step);
-                        _id = update(uri,value, null ,null);
-                    }
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
+        int returnCount = 0;
+        long _id = -1;
+        try {
+            cursor = getStepByTypeAndDate(uri, null, null);
+            String stepsnbre = cursor.getString(cursor.getColumnIndex(StepContract.StepEntry.COLUMN_NBRE_STEPS));
+            int step = Integer.parseInt(stepsnbre);
+            int stepPrecedent = Integer.parseInt(value.getAsString(StepContract.StepEntry.COLUMN_NBRE_STEPS));
+            step = step + stepPrecedent;
+            value.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, step);
+            _id = update(uri, value, null, null);
+            db.setTransactionSuccessful();
+        }
+        catch (CursorIndexOutOfBoundsException e){
+            try {
+
+
+                _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, value);
+                if (_id != -1) {
+                    returnCount++;
+
                 }
+                db.setTransactionSuccessful();
+            }finally {
+            }
+
+        }
+
+        finally {
+            db.endTransaction();
+        }
+
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returnCount;
 

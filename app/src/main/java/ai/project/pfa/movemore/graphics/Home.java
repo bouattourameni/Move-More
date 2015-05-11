@@ -36,26 +36,21 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
         buttonNormal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (currentType == -1) {
-                    intentModes.putExtra("type", 0);
+                if (currentType != 2) {
+                    intentModes.putExtra("type", 1);
                     startActivity(intentModes);
-                    setCurrentType(0);
+                    setCurrentType(1);
                 }
-                else if (currentType == 0){
-                    intentModes.putExtra("type", -1);
-                    startActivity(intentModes);
-                    startActivity(intentModes);
 
-                }
             }
         });
         buttonSportif.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (currentType == -1) {
-                    intentModes.putExtra("type", 1);
+                if (currentType != 1) {
+                    intentModes.putExtra("type", 2);
                     startActivity(intentModes);
-                    setCurrentType(1);
+                    setCurrentType(2);
                 }
             }
         });

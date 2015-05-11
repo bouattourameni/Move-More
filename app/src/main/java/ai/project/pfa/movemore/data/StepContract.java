@@ -54,11 +54,17 @@ public class StepContract {
                 long startDate, String type) {
 
             return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate))
-                    .appendQueryParameter(COLUMN_DATE, Long.toString(startDate))
-                    .appendQueryParameter(COLUMN_TYPE,type)
+                    .appendQueryParameter(COLUMN_TYPE, type)
+                    //.appendPath(type)
                     .build();
         }
-//        public static Uri buildStepWithStartDateAndType(
+        public static Uri buildStepWithType(String type){
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_TYPE, type)
+                            //.appendPath(type)
+                    .build();
+        }
+//        public static Uri buildStepType(
 //                long startDate, String type) {
 //
 //            return CONTENT_URI.buildUpon().appendPath(String.valueOf(startDate))
@@ -74,7 +80,9 @@ public class StepContract {
             return Long.parseLong(uri.getPathSegments().get(1));
         }
         public static String getTypeFromUri(Uri uri) {
-            return uri.getPathSegments().get(2);
+           // String s = uri.getPathSegments().get(2);
+         String  s = uri.getQueryParameter(COLUMN_TYPE);
+            return s;
         }
     }
 
