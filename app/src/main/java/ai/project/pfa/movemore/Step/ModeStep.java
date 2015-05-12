@@ -162,11 +162,10 @@ public class ModeStep extends Activity {
         super.onResume();
 
     }
-   
+
     @Override
     protected void onPause() {
         super.onPause();
-
 
 
     }
