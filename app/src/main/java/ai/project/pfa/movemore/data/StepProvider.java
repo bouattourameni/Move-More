@@ -18,12 +18,12 @@ public class StepProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
 
-
     public static final int STEP = 100;
     public static final int STEP_WITH_TYPE = 101;
     public static final int STEP_WITH_TYPE_AND_DATE = 102;
 
     SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
     {
         qb.setTables(StepContract.StepEntry.TABLE_NAME);
     }
@@ -31,7 +31,7 @@ public class StepProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
 
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority=StepContract.CONTENT_AUTHORITY;
+        final String authority = StepContract.CONTENT_AUTHORITY;
         // 2) Use the addURI function to match each of the types.  Use the constants from
         // WeatherContract to help define the types to the UriMatcher.
         matcher.addURI(authority, StepContract.PATH_STEP, STEP);
@@ -41,16 +41,17 @@ public class StepProvider extends ContentProvider {
 
         return matcher;
     }
+
     private static final String sTypeAndDateSelection =
-            StepContract.StepEntry.TABLE_NAME+
+            StepContract.StepEntry.TABLE_NAME +
                     "." + StepContract.StepEntry.COLUMN_TYPE + " = ? AND " +
                     StepContract.StepEntry.COLUMN_DATE + " >= ? ";
     private static final String sLocationSettingSelection =
-            StepContract.StepEntry.TABLE_NAME+
+            StepContract.StepEntry.TABLE_NAME +
                     "." + StepContract.StepEntry.COLUMN_TYPE + " = ? ";
 
     private Cursor getStep(Uri uri, String[] projection, String sortOrder) {
-     return qb.query(mOpenHelper.getReadableDatabase(),
+        return qb.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 null,
                 null,
@@ -59,6 +60,7 @@ public class StepProvider extends ContentProvider {
                 sortOrder
         );
     }
+
     private Cursor getStepByType(
             Uri uri, String[] projection, String sortOrder) {
 
@@ -73,6 +75,7 @@ public class StepProvider extends ContentProvider {
                 sortOrder
         );
     }
+
     private Cursor getStepByTypeAndDate(
             Uri uri, String[] projection, String sortOrder) {
 
@@ -88,6 +91,7 @@ public class StepProvider extends ContentProvider {
                 sortOrder
         );
     }
+
     @Override
     public boolean onCreate() {
         mOpenHelper = new StepDBHelper(getContext());
@@ -100,8 +104,7 @@ public class StepProvider extends ContentProvider {
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
 
-            case STEP:
-            {
+            case STEP: {
                 retCursor = getStep(uri, projection, sortOrder);
                 break;
             }
@@ -142,6 +145,7 @@ public class StepProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
     }
+
     private void normalizeDate(ContentValues values) {
         // normalize the date value
         if (values.containsKey(StepContract.StepEntry.COLUMN_DATE)) {
@@ -149,6 +153,7 @@ public class StepProvider extends ContentProvider {
             values.put(StepContract.StepEntry.COLUMN_DATE, StepContract.normalizeDate(dateValue));
         }
     }
+
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -160,7 +165,7 @@ public class StepProvider extends ContentProvider {
                 normalizeDate(values);
 
                 long _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, values);
-                if ( _id > 0 )
+                if (_id > 0)
                     returnUri = StepContract.StepEntry.buildStepUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -179,7 +184,7 @@ public class StepProvider extends ContentProvider {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int rowsDeleted;
         // this makes delete all rows return the number of rows deleted
-        if ( null == selection ) selection = "1";
+        if (null == selection) selection = "1";
 
         rowsDeleted = db.delete(
                 StepContract.StepEntry.TABLE_NAME, selection, strings);
@@ -195,23 +200,24 @@ public class StepProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String s, String[] strings) {
 
 
-            final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-            final int match = sUriMatcher.match(uri);
-            int rowsUpdated;
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        int rowsUpdated;
 
-                    normalizeDate(values);
-                    rowsUpdated = db.update(StepContract.StepEntry.TABLE_NAME, values, s,
-                            strings);
+        normalizeDate(values);
+        rowsUpdated = db.update(StepContract.StepEntry.TABLE_NAME, values, s,
+                strings);
 
-            if (rowsUpdated != 0) {
-                getContext().getContentResolver().notifyChange(uri, null);
-            }
-            return rowsUpdated;
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsUpdated;
     }
+
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        ContentValues value = values [0];
+        ContentValues value = values[0];
         long dateValue = 0;
         normalizeDate(value);
         if (value.containsKey(StepContract.StepEntry.COLUMN_DATE))
@@ -231,8 +237,7 @@ public class StepProvider extends ContentProvider {
             value.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, step);
             _id = update(uri, value, null, null);
             db.setTransactionSuccessful();
-        }
-        catch (CursorIndexOutOfBoundsException e){
+        } catch (CursorIndexOutOfBoundsException e) {
             try {
 
 
@@ -242,24 +247,19 @@ public class StepProvider extends ContentProvider {
 
                 }
                 db.setTransactionSuccessful();
-            }finally {
+            } finally {
             }
 
-        }
-
-        finally {
+        } finally {
             db.endTransaction();
         }
 
-                getContext().getContentResolver().notifyChange(uri, null);
-                return returnCount;
+        getContext().getContentResolver().notifyChange(uri, null);
+        return returnCount;
 
 
     }
 
-    // You do not need to call this method. This is a method specifically to assist the testing
-    // framework in running smoothly. You can read more at:
-    // http://developer.android.com/reference/android/content/ContentProvider.html#shutdown()
     @Override
     @TargetApi(11)
     public void shutdown() {

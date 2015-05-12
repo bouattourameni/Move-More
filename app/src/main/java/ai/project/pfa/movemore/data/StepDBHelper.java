@@ -15,9 +15,8 @@ public class StepDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "step.db";
 
     public StepDBHelper(Context context) {
-        super(context, DATABASE_NAME, null , DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
 
     @Override
@@ -29,11 +28,10 @@ public class StepDBHelper extends SQLiteOpenHelper {
                 StepContract.StepEntry.COLUMN_NBRE_STEPS + " TEXT NOT NULL, " +
                 StepContract.StepEntry.COLUMN_TEMPS + " TEXT NOT NULL, " +
 
-                "UNIQUE (" + StepContract.StepEntry.COLUMN_DATE +") ON CONFLICT IGNORE "+
+                "UNIQUE (" + StepContract.StepEntry.COLUMN_DATE + ") ON CONFLICT IGNORE " +
 
-                "UNIQUE (" + StepContract.StepEntry.COLUMN_TYPE +") ON CONFLICT IGNORE"+
+                "UNIQUE (" + StepContract.StepEntry.COLUMN_TYPE + ") ON CONFLICT IGNORE" +
                 " );";
-
 
 
         sqLiteDatabase.execSQL(SQL_CREATE_STEP_TABLE);

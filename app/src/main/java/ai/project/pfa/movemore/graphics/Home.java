@@ -22,18 +22,19 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
     Intent intentModes;
     Intent intentStat;
     static int stepping = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        buttonNormal=(Button)findViewById(R.id.buttonNormal);
-        buttonSportif=(Button)findViewById(R.id.buttonSportif);
-        buttonStat=(Button)findViewById(R.id.buttonStatistique);
-        buttonAbout=(Button)findViewById(R.id.buttonAboutMe);
+        buttonNormal = (Button) findViewById(R.id.buttonNormal);
+        buttonSportif = (Button) findViewById(R.id.buttonSportif);
+        buttonStat = (Button) findViewById(R.id.buttonStatistique);
+        buttonAbout = (Button) findViewById(R.id.buttonAboutMe);
         intentModes = new Intent(this, ModeStep.class);
-        intentStat = new Intent (this, Statistics.class);
-        buttonNormal.setOnClickListener(new View.OnClickListener(){
+        intentStat = new Intent(this, Statistics.class);
+        buttonNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (currentType != 2) {
@@ -44,7 +45,7 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
 
             }
         });
-        buttonSportif.setOnClickListener(new View.OnClickListener(){
+        buttonSportif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (currentType != 1) {
@@ -54,17 +55,17 @@ public class Home extends Activity implements AdapterView.OnItemSelectedListener
                 }
             }
         });
-        buttonStat.setOnClickListener(new View.OnClickListener(){
+        buttonStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 startActivity(intentStat);
             }
         });
-        buttonAbout.setOnClickListener(new View.OnClickListener(){
+        buttonAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Ameni Bouattour, GDG Sfax, #Study_Jams",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Ameni Bouattour, GDG Sfax, #Study_Jams", Toast.LENGTH_LONG).show();
             }
         });
 

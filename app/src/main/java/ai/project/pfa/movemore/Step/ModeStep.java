@@ -49,9 +49,9 @@ public class ModeStep extends Activity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mService = new Messenger(iBinder);
-            mBound= true;
+            mBound = true;
 
-            manager=new SensorManagerStep((SensorManager)getSystemService(SENSOR_SERVICE),mService);
+            manager = new SensorManagerStep((SensorManager) getSystemService(SENSOR_SERVICE), mService);
 
 
         }
@@ -68,19 +68,15 @@ public class ModeStep extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_normal);
-        Bundle b=getIntent().getExtras();
-        nrmlImg =(ImageView)findViewById(R.id.NrmImg);
-        sprImg= (ImageView)findViewById(R.id.SprImg);
-        type=b.getInt("type");
-        ch= (Chronometer) findViewById(R.id.chronometer);
-        steps=(TextView)findViewById(R.id.steps);
+        Bundle b = getIntent().getExtras();
+        nrmlImg = (ImageView) findViewById(R.id.NrmImg);
+        sprImg = (ImageView) findViewById(R.id.SprImg);
+        type = b.getInt("type");
+        ch = (Chronometer) findViewById(R.id.chronometer);
+        steps = (TextView) findViewById(R.id.steps);
 
 
-        Intent i=new Intent(this, Vibration.class);
-        if (type == -1) {
-            onResume();
-
-        }else {
+        Intent i = new Intent(this, Vibration.class);
 
 
         time = new Time();
@@ -93,36 +89,34 @@ public class ModeStep extends Activity {
             sprImg.setVisibility(View.GONE);
             nrmlImg.setVisibility(View.VISIBLE);
 
-        }
-        else
-        {
+        } else {
             nrmlImg.setVisibility(View.GONE);
             sprImg.setVisibility(View.VISIBLE);
         }
 
         startService(i);
         boolean b1 = bindService(i, mConnection, 0);
-        }
+
         start = (Button) findViewById(R.id.start);
         stop = (Button) findViewById(R.id.stop);
 
         start.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             ins = getResources().openRawResource(getResources().
-                     getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
-             if (mBound) {
-                 ch.start();
-                 fuzzy = new Fuzzy(ins);
-                 manager.setFuzzy(fuzzy);
-                 manager.StartListening();
-             }
+                                     @Override
+                                     public void onClick(View view) {
+                                         ins = getResources().openRawResource(getResources().
+                                                 getIdentifier("raw/pedometrefcl", "raw", getPackageName()));
+                                         if (mBound) {
+                                             ch.start();
+                                             fuzzy = new Fuzzy(ins);
+                                             manager.setFuzzy(fuzzy);
+                                             manager.StartListening();
+                                         }
                                      }
                                  }
 
         );
 
-        stop.setOnClickListener(new View.OnClickListener(){
+        stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -131,7 +125,6 @@ public class ModeStep extends Activity {
                 unbindService(mConnection);
                 steps.setText("0");
                 createOrUpdateData();
-                onStop();
                 mBound = false;
                 Home.currentType = -1;
 
@@ -141,7 +134,7 @@ public class ModeStep extends Activity {
 
     }
 
-    public void createOrUpdateData (){
+    public void createOrUpdateData() {
         Vector<ContentValues> cVVector = new Vector<ContentValues>(4);
         ContentValues StepValues = new ContentValues();
 
@@ -153,7 +146,7 @@ public class ModeStep extends Activity {
         cVVector.add(StepValues);
         int inserted = 0;
         // add to database
-        if ( cVVector.size() > 0 ) {
+        if (cVVector.size() > 0) {
             // Student: call bulkInsert to add the weatherEntries to the database here
             ContentValues[] cvArray = new ContentValues[cVVector.size()];
             cVVector.toArray(cvArray);
@@ -187,10 +180,6 @@ public class ModeStep extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
-
 
 
     }
