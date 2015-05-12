@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Messenger;
 import android.text.format.Time;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -42,6 +43,8 @@ public class ModeStep extends Activity {
     Button stop;
     Date date = new Date();
     Time time;
+
+    CharSequence storeChrono = "00:00";
 
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -157,12 +160,14 @@ public class ModeStep extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-    }
 
+    }
+   
     @Override
     protected void onPause() {
-
         super.onPause();
+
+
 
     }
 
