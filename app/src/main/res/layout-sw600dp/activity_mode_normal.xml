@@ -4,59 +4,73 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:gravity="center_vertical|center_horizontal">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:id="@+id/NrmImg"
+        android:src="@drawable/marche"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:visibility="visible"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:id="@+id/SprImg"
+        android:src="@drawable/run"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal|fill_vertical"
-        android:layout_margin="50dp"
-        android:layout_marginBottom="0dp">
+        >
 
-        <Button
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mode Normal"
-            android:id="@+id/button2"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_weight="1" />
+            android:text="Steps: "
+            android:id="@+id/textView2"
+            android:textSize="50dp" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <TextView android:text="0" android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
-            android:layout_gravity="center"
-            android:layout_weight="1" />
-
+            android:id="@+id/steps"
+            android:textSize="60dp" />
     </LinearLayout>
 
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer"
+        android:textSize="40dp"
+        />
+
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal|fill_vertical"
-        android:layout_margin="50dp"
-        android:layout_marginTop="0dp">
+        android:layout_margin="16dp">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button3"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:text="Start"
+            android:id="@+id/start"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button4"
-            android:layout_gravity="center"
+            android:text="Stop"
+            android:id="@+id/stop"
             android:layout_weight="1" />
-
     </LinearLayout>
 
 </LinearLayout>
