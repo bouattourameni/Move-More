@@ -9,6 +9,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Messenger;
+import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,7 @@ public class ModeStep extends Activity {
         public void onServiceDisconnected(ComponentName componentName) {
             mService = null;
             mBound = false;
+            Vibration.essai = 0;
 
         }
     };
@@ -126,10 +128,11 @@ public class ModeStep extends Activity {
                 ch.stop();
                 manager.EndListening();
                 unbindService(mConnection);
-                steps.setText("0");
                 createOrUpdateData();
+                steps.setText("0");
                 mBound = false;
                 Home.currentType = -1;
+                System.exit(0);
 
             }
         });
@@ -141,7 +144,7 @@ public class ModeStep extends Activity {
         Vector<ContentValues> cVVector = new Vector<ContentValues>(4);
         ContentValues StepValues = new ContentValues();
 
-        StepValues.put(StepContract.StepEntry.COLUMN_DATE, date.getTime());
+        StepValues.put(StepContract.StepEntry.COLUMN_DATE, DateFormat.format("dd-MM-yyyy", new java.util.Date()).toString());
         StepValues.put(StepContract.StepEntry.COLUMN_TYPE, Integer.toString(type));
         StepValues.put(StepContract.StepEntry.COLUMN_NBRE_STEPS, String.valueOf(steps.getText()));
         StepValues.put(StepContract.StepEntry.COLUMN_TEMPS, String.valueOf(ch.getText()));

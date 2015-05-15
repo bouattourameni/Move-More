@@ -9,6 +9,9 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.format.Time;
+
+import 	java.sql.Timestamp;
 
 /**
  * Created by user on 05/05/2015.
@@ -79,13 +82,13 @@ public class StepProvider extends ContentProvider {
     private Cursor getStepByTypeAndDate(
             Uri uri, String[] projection, String sortOrder) {
 
-        long date = StepContract.StepEntry.getDateFromUri(uri);
+        String date = StepContract.StepEntry.getDateFromUri(uri);
         String type = StepContract.StepEntry.getTypeFromUri(uri);
 
         return qb.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 sTypeAndDateSelection,
-                new String[]{type, Long.toString(date)},
+                new String[]{type, date},
                 null,
                 null,
                 sortOrder
@@ -146,13 +149,7 @@ public class StepProvider extends ContentProvider {
         }
     }
 
-    private void normalizeDate(ContentValues values) {
-        // normalize the date value
-        if (values.containsKey(StepContract.StepEntry.COLUMN_DATE)) {
-            long dateValue = values.getAsLong(StepContract.StepEntry.COLUMN_DATE);
-            values.put(StepContract.StepEntry.COLUMN_DATE, StepContract.normalizeDate(dateValue));
-        }
-    }
+
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -162,7 +159,7 @@ public class StepProvider extends ContentProvider {
 
         switch (match) {
             case STEP: {
-                normalizeDate(values);
+
 
                 long _id = db.insert(StepContract.StepEntry.TABLE_NAME, null, values);
                 if (_id > 0)
@@ -204,7 +201,7 @@ public class StepProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         int rowsUpdated;
 
-        normalizeDate(values);
+
         rowsUpdated = db.update(StepContract.StepEntry.TABLE_NAME, values, s,
                 strings);
 
@@ -218,10 +215,7 @@ public class StepProvider extends ContentProvider {
     public int bulkInsert(Uri uri, ContentValues[] values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         ContentValues value = values[0];
-        long dateValue = 0;
-        normalizeDate(value);
-        if (value.containsKey(StepContract.StepEntry.COLUMN_DATE))
-            dateValue = value.getAsLong(StepContract.StepEntry.COLUMN_DATE);
+        String dateValue = value.getAsString(StepContract.StepEntry.COLUMN_DATE);
         uri = StepContract.StepEntry.buildStepWithStartDateAndType(dateValue,
                 value.getAsString(StepContract.StepEntry.COLUMN_TYPE));
         Cursor cursor = null;
