@@ -72,13 +72,22 @@ public class ModeStep extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            steps.setText(savedInstanceState.getString(STATE_STEPS));
+            ch.setText(savedInstanceState.getString(STATE_CHRONO));
+        } else {
+            // Probably initialize members with default values for a new instance
+            nrmlImg = (ImageView) findViewById(R.id.NrmImg);
+            sprImg = (ImageView) findViewById(R.id.SprImg);
+            ch = (Chronometer) findViewById(R.id.chronometer);
+            steps = (TextView) findViewById(R.id.steps);
+        }
         setContentView(R.layout.activity_mode_normal);
         Bundle b = getIntent().getExtras();
-        nrmlImg = (ImageView) findViewById(R.id.NrmImg);
-        sprImg = (ImageView) findViewById(R.id.SprImg);
+
         type = b.getInt("type");
-        ch = (Chronometer) findViewById(R.id.chronometer);
-        steps = (TextView) findViewById(R.id.steps);
+
 
 
         Intent i = new Intent(this, Vibration.class);
@@ -138,6 +147,20 @@ public class ModeStep extends Activity {
         });
 
 
+    }
+
+    static final String STATE_STEPS = "steps";
+    static final String STATE_CHRONO = "chrono";
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current workout state
+        savedInstanceState.putString(STATE_STEPS, steps.getText().toString());
+        savedInstanceState.putString(STATE_CHRONO, ch.getText().toString());
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     public void createOrUpdateData() {
